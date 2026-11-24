@@ -1,4 +1,10 @@
-# DNS Speed Comparison Tool
+# ResolveX — DNS Speed Comparison & Network Intelligence Tool
+
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel-success?style=for-the-badge&logo=vercel)](https://resolvex-9dz4-lime.vercel.app)
+[![Backend](https://img.shields.io/badge/Backend-Render-46E3B7?style=for-the-badge&logo=render)](https://resolvex-9dz4-lime.vercel.app)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
+
+> 🚀 **Live Demo:** **[https://resolvex-9dz4-lime.vercel.app](https://resolvex-9dz4-lime.vercel.app)**
 
 **Test. Compare. Find the fastest DNS for your network.**
 
@@ -13,19 +19,14 @@ them by latency and reliability.
 
 ## Features
 
-- Select from default providers: **Cloudflare (1.1.1.1)**, **Google (8.8.8.8)**, **Quad9 (9.9.9.9)**, **AdGuard (94.140.14.14)**
-- Select All / Clear All, per-provider cards with IP + description + status
-- Configurable test domain (suggestions: `google.com`, `cloudflare.com`, `github.com`), queries per server (5/10/20), timeout
-- **Real backend DNS measurement** via Node.js `dns.Resolver` pointed at each provider's IP (not HTTP pings)
-- Live progress UI (non-blocking, async)
-- Results dashboard: dynamically determined **fastest DNS**, sortable comparison table
-- Charts (Recharts): average latency bar chart, success-rate bar chart, per-query latency distribution line chart
-- Per-provider detail view: avg/min/max/median, success & failure counts, individual query results
-- Test history in `localStorage` (date, domain, fastest server, avg latency) with Clear History — no login
-- "What is DNS?" educational section
-- Friendly error handling (invalid domain, timeout, unreachable backend, no servers selected)
-- Responsive (desktop → mobile), keyboard accessible, ARIA labels, good contrast
-- **AI DNS Detective**: evidence-based diagnosis of benchmark results (high latency, timeouts, instability, provider outliers, network-wide issues), severity + confidence, historical baselines, and optional AI rephrasing via a server-side provider
+- 🏎️ **DNS Race Replay**: Real-time animated visualization of query packet transmission across parallel neon tracks with podium placements and millisecond deltas.
+- ⚡ **Real Backend DNS Measurement**: Measures real nanosecond socket queries via Node.js `dns.Resolver` pointed directly at provider anycast IPs (not HTTP pings).
+- 📊 **Visual Analytics**: Interactive Recharts graphs showing average latency comparisons, success rates, and multi-query jitter lines.
+- 🔍 **Query Inspector**: Granular tabular drill-down of every query attempt with min/max/median statistics and **1-click Export to CSV & JSON**.
+- 🧠 **AI DNS Detective**: Automated heuristic reasoning engine identifying network anomalies, provider timeouts, and historical baseline regressions.
+- ⏱️ **Test History**: Persistent local benchmark archive with a **"Restore & Race"** feature to replay past test runs.
+- 📚 **DNS Academy**: Educational guide covering recursive resolvers, anycast routing, latency vs bandwidth, and DoH/DoT.
+- 🌐 **Modern Fixed Sidebar Navigation**: Polished, responsive dark-mode dashboard interface.
 
 ## Technologies Used
 
