@@ -1,3 +1,5 @@
+const path = require('path');
+const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
@@ -21,26 +23,50 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res) => {
-  // If visited directly in a web browser, redirect to the frontend UI
-  if (req.accepts('html') && !req.accepts('json')) {
-    return res.redirect('http://localhost:5173/');
-  }
-  if (req.headers.accept && req.headers.accept.includes('text/html')) {
-    return res.redirect('http://localhost:5173/');
-  }
-  res.json({
-    name: 'DNS Speed Comparison Tool — API',
-    version: '1.0.0',
-    endpoints: ['GET /api/health', 'GET /api/servers', 'POST /api/test', 'GET /api/ai-status', 'POST /api/explain'],
-  });
-});
-
+// Mount API routes
 app.use('/api', apiRoutes);
 app.use('/api', explainRoutes);
 
-// 404
-app.use((req, res) => res.status(404).json({ error: 'Not found' }));
+// Locate frontend dist folder for backend rendering
+const possibleDistPaths = [
+  path.resolve(__dirname, '../../frontend/dist'),
+  path.resolve(__dirname, '../frontend/dist'),
+  path.resolve(__dirname, '../dist'),
+  path.resolve(process.cwd(), 'ResolveX/frontend/dist'),
+  path.resolve(process.cwd(), 'frontend/dist'),
+  path.resolve(process.cwd(), 'dist'),
+];
+const distPath = possibleDistPaths.find((p) => fs.existsSync(path.join(p, 'index.html')));
+
+if (distPath) {
+  console.log(`Serving frontend static files from: ${distPath}`);
+  // Serve static assets from dist
+  app.use(express.static(distPath));
+
+  // SPA fallback: any non-API route serves index.html
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) {
+      return next();
+    }
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+} else {
+  app.get('/', (req, res) => {
+    // If visited directly in a web browser without a built frontend, redirect to dev server
+    if (req.accepts('html')) {
+      return res.redirect('http://localhost:5173/');
+    }
+    res.json({
+      name: 'DNS Speed Comparison Tool — API',
+      version: '1.0.0',
+      endpoints: ['GET /api/health', 'GET /api/servers', 'POST /api/test', 'GET /api/ai-status', 'POST /api/explain'],
+      note: 'Frontend dist not found. Run `npm run build` to enable backend rendering.',
+    });
+  });
+}
+
+// 404 for unmatched /api routes
+app.use('/api', (req, res) => res.status(404).json({ error: 'API endpoint not found' }));
 
 // Malformed JSON bodies otherwise fall through to Express's default HTML error page.
 // Return JSON so API clients (and our frontend) get a parseable error.
