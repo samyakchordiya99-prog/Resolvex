@@ -1,0 +1,10 @@
+{
+  "buildCommand": "npm --prefix ResolveX/frontend install && npm --prefix ResolveX/frontend run build",
+  "outputDirectory": "ResolveX/frontend/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
