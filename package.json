@@ -1,0 +1,16 @@
+{
+  "name": "resolvex-root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Root workspace runner for ResolveX",
+  "scripts": {
+    "start": "npm --prefix ResolveX start",
+    "dev": "npm --prefix ResolveX dev",
+    "install:all": "npm --prefix ResolveX run install:all",
+    "dev:backend": "npm --prefix ResolveX run dev:backend",
+    "dev:frontend": "npm --prefix ResolveX run dev:frontend",
+    "build": "npm --prefix ResolveX run build",
+    "test:all": "npm --prefix ResolveX run test:all"
+  }
+}
+

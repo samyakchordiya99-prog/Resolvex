@@ -1,0 +1,15 @@
+{
+  "name": "dns-speed-comparison",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DNS Speed Comparison Tool — measure and compare real DNS resolver latency",
+  "scripts": {
+    "start": "node dev.js",
+    "dev": "node dev.js",
+    "install:all": "npm --prefix backend install && npm --prefix frontend install",
+    "dev:backend": "npm --prefix backend start",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "test:all": "npm --prefix backend test && npm --prefix frontend test"
+  }
+}
